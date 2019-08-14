@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "anotherapi", "anotherapi\anotherapi.csproj", "{454E0B63-03EC-4E48-BD43-07FFEAABEC45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "anotherapi.Test", "anotherapi.Test\anotherapi.Test.csproj", "{8249ADE0-F653-4011-99E5-0772EDC9CB9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{454E0B63-03EC-4E48-BD43-07FFEAABEC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{454E0B63-03EC-4E48-BD43-07FFEAABEC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{454E0B63-03EC-4E48-BD43-07FFEAABEC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{454E0B63-03EC-4E48-BD43-07FFEAABEC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8249ADE0-F653-4011-99E5-0772EDC9CB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8249ADE0-F653-4011-99E5-0772EDC9CB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8249ADE0-F653-4011-99E5-0772EDC9CB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8249ADE0-F653-4011-99E5-0772EDC9CB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3E05936-0045-4782-B16B-B47484DD390B}
+	EndGlobalSection
+EndGlobal
