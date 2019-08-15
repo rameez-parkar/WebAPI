@@ -4,28 +4,28 @@ pipeline {
         stage('Build') {
         	steps{
         		echo 'Building project'
-        		sh 'dotnet build anotherapi.sln -p:Configuration=release -v:n'
+        		bat 'dotnet build anotherapi.sln -p:Configuration=release -v:n'
             echo 'Finished build'
         	}
         }
         stage('Test') {
         	steps{
         		echo 'Testing project'
-        		sh 'dotnet test anotherapi.Test/anotherapi.Test.csproj'
+        		bat 'dotnet test anotherapi.Test/anotherapi.Test.csproj'
             echo 'Finished test'
         	}
         }
         stage('Publish') {
         	steps{
         		echo 'Publishing project'
-        		sh 'dotnet publish'
+        		bat 'dotnet publish'
             echo 'Finished publish'
         	}
         }
         stage('Deploy') {
         	steps{
         		echo 'Deploy project'
-        		sh 'dotnet anotherapi/bin/Release/netcoreapp2.2/anotherapi.dll'
+        		bat 'dotnet anotherapi/bin/Release/netcoreapp2.2/anotherapi.dll'
             echo 'Finished deploy'
         	}
         }
