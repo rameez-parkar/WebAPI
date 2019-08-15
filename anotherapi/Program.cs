@@ -20,6 +20,6 @@ namespace anotherapi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls(urls:"http://*:1104");
+                .UseUrls(urls:"http://*:11104");
     }
 }
