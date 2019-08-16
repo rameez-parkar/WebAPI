@@ -31,7 +31,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Start Deploying'
-				bat 'docker build -t %imageFile% -f Dockerfile .'
+				bat 'docker build --tag=%imageFile% --file=Dockerfile .'
 				bat 'docker run -p 8111:11104 %imageFile%'
 				echo 'Finished Deploying'
 			}
