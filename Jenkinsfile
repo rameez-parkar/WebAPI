@@ -27,20 +27,6 @@ pipeline {
                 echo 'Finished publish'
         	}
         }
-		stage('Docker Build'){
-			steps{
-				echo 'Building Docker image'
-				bat 'docker build --tag=webapidockerimage .'
-				echo 'Docker image built'
-			}
-		}
-		stage('Docker Image Deploy'){
-			steps{
-				echo 'Deploying Docker image'
-				bat 'docker run -p 8111:11104 webapidockerimage'
-				echo 'Deployed'
-			}
-		}
     }
     post{
              success{
