@@ -1,17 +1,22 @@
 pipeline {
     agent any
+
+	parameters{
+		string(defaultValue:"anotherapi.sln", description: 'name of solution file', name: 'slnFile')
+		string(defaultValue:"anotherapi.Test/anotherapi.Test.csproj", description: 'path of test file', name: 'testFile')
+	}
     stages {
         stage('Build') {
         	steps{
         		echo 'Building project'
-        		bat 'dotnet build anotherapi.sln -p:Configuration=release -v:n'
+        		bat 'dotnet build %slnFile% -p:Configuration=release -v:n'
                 echo 'Finished build'
         	}
         }
         stage('Test') {
         	steps{
         		echo 'Testing project'
-        		bat 'dotnet test anotherapi.Test/anotherapi.Test.csproj'
+        		bat 'dotnet test %testFile%'
                 echo 'Finished test'
         	}
         }
@@ -20,13 +25,6 @@ pipeline {
         		echo 'Publishing project'
         		bat 'dotnet publish'
                 echo 'Finished publish'
-        	}
-        }
-        stage('Deploy') {
-        	steps{
-        		echo 'Deploy project'
-        		bat 'dotnet anotherapi/bin/Release/netcoreapp2.2/anotherapi.dll'
-                echo 'Finished deploy'
         	}
         }
     }
