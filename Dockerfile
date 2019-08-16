@@ -1,20 +1,6 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+WORKDIR app
+COPY anotherapi/Publish .
 EXPOSE 80
 EXPOSE 443
-
-FROM microsoft/dotnet:2.2-sdk AS build
-WORKDIR /src
-COPY ["anotherapi/anotherapi.csproj", "anotherapi/"]
-RUN dotnet restore "anotherapi/anotherapi.csproj"
-COPY . .
-WORKDIR "/src/anotherapi"
-RUN dotnet build "anotherapi.csproj" -c Release -o /app
-
-FROM build AS publish
-RUN dotnet publish "anotherapi.csproj" -c Release -o /app
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "anotherapi.dll"]
+ENTRYPOINT ["dotnet", "WebAPIExample.dll"]

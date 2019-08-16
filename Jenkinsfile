@@ -23,7 +23,7 @@ pipeline {
         stage('Publish') {
         	steps{
         		echo 'Publishing project'
-        		bat 'dotnet publish'
+        		bat 'dotnet publish -c Release -o Publish'
                 echo 'Finished publish'
         	}
         }
