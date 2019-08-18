@@ -22,10 +22,10 @@ pipeline {
 			steps{
 				echo 'Performing SonarQube Code Analysis'
 				script{
-					scannerhome = tool 'Sonar-Scanner'
+					def scannerhome = tool 'Sonar-Scanner'
 				}
 					withSonarQubeEnv ('SonarQubeServer'){
-						bat "%scannerhome%/bin/sonar-scanner"
+						bat "${scannerhome}/bin/sonar-scanner"
 				}
 			}
 		}
