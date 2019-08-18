@@ -11,17 +11,6 @@ pipeline {
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 	}
     stages {
-		stage('Code Analysis'){
-			steps{
-				echo 'Performing SonarQube Code Analysis'
-				script{
-					def scannerhome = tool 'Sonar-Scanner';
-					withSonarQubeEnv ('SonarQubeServer'){
-						bat "${scannerhome}/bin/sonar-scanner"
-					}
-				}
-			}
-		}
         stage('Build') {
         	steps{
         		echo 'Building project'
@@ -29,6 +18,17 @@ pipeline {
                 echo 'Finished build'
         	}
         }
+		stage('Code Analysis'){
+			steps{
+				echo 'Performing SonarQube Code Analysis'
+				script{
+					scannerhome = tool 'Sonar-Scanner'
+				}
+					withSonarQubeEnv ('SonarQubeServer'){
+						bat "%scannerhome%/bin/sonar-scanner"
+				}
+			}
+		}
         stage('Test') {
         	steps{
         		echo 'Testing project'
