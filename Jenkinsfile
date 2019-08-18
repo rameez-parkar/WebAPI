@@ -13,9 +13,12 @@ pipeline {
     stages {
 		stage('Code Analysis'){
 			steps{
-				def scannerhome = tool 'Sonar-Scanner';
-				withSonarQubeEnv ('SonarQubeServer'){
-					bat "${scannerhome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
+				echo 'Performing SonarQube Code Analysis'
+				script{
+					def scannerhome = tool 'Sonar-Scanner';
+					withSonarQubeEnv ('SonarQubeServer'){
+						bat "${scannerhome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
+				}
 				}
 			}
 		}
