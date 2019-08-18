@@ -17,7 +17,7 @@ pipeline {
 				script{
 					def scannerhome = tool 'Sonar-Scanner';
 					withSonarQubeEnv ('SonarQubeServer'){
-						bat "${scannerhome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin -D sonar.projectKey=webapiexample"
+						bat "${scannerhome}/bin/sonar-scanner"
 				}
 				}
 			}
