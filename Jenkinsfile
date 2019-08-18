@@ -11,6 +11,14 @@ pipeline {
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 	}
     stages {
+		stage('Code Analysis'){
+			steps{
+				def scannerhome = tool 'Sonar-Scanner';
+				withSonarQubeEnv ('SonarQubeServer'){
+					bat "${scannerhome}/bin/sonar-scanner -D sonar.login=admin -D sonar.password=admin"
+				}
+			}
+		}
         stage('Build') {
         	steps{
         		echo 'Building project'
