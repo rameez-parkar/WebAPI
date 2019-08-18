@@ -17,9 +17,9 @@ pipeline {
 				script{
 					def scannerhome = tool 'Sonar-Scanner';
 					withSonarQubeEnv ('SonarQubeServer'){
-						bat "${scannerhome}\\SonarQube.Scanner.MSBuild.exe begin /k:myKey"
-						bat 'MSBuild.exe /t:Rebuild'
-						bat "${scannerhome}\\SonarQube.Scanner.MSBuild.exe end"
+						bat "${scannerhome}/bin/sonar-scanner.bat begin //k:Rameez:webapi"
+						bat 'MSBuild.exe //t:Rebuild'
+						bat "${scannerhome}/bin/sonar-scanner.bat end"
 					}
 				}
 			}
