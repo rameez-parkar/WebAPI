@@ -5,8 +5,6 @@ pipeline {
 		string(defaultValue:"anotherapi.sln", description: 'Name of Solution File', name: 'slnFile')
 		string(defaultValue:"anotherapi.Test/anotherapi.Test.csproj", description: 'Path of test file', name: 'testFile')
 		string(defaultValue:"webapiimage", description: 'Docker Image', name: 'imageName')
-		string(defaultValue:"rameezparkar", description: 'Docker Hub Username', name: 'username')
-		string(defaultValue:"password", description: 'Docker Hub Password', name: 'password')
 		string(defaultValue:"rameezparkar/webapi_repo", description: 'Repository Name', name: 'repositoryName')
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 	}
@@ -52,9 +50,11 @@ pipeline {
 		}
 		stage('Docker Login'){
 			steps{
-				echo 'Logging in to Docker Hub'
-				bat 'docker login --username=%username% --password=%password%'
-				echo 'Login Complete'
+				withCredentials([usernamePassword(credentialsId: '433624c2-9a39-483d-aad6-48526cf306f0', passwordVariable: 'password', usernameVariable: 'username')]){
+					echo 'Logging in to Docker Hub'
+					bat 'docker login --username=%username% --password=%password%'
+					echo 'Login Complete'
+				}
 			}
 		}
 		stage('Docker Push'){
