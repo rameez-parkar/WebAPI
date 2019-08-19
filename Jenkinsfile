@@ -24,11 +24,12 @@ pipeline {
 			steps{
 				echo 'Performing SonarQube Code Analysis'
 				script{
+					def scannerhome = tool 'SonarScanner'
 					withSonarQubeEnv ('SonarQubeServer'){
 						withCredentials([usernamePassword(credentialsId: '43ecc876-fb21-4289-aed9-e8ad51aae1e2', passwordVariable: 'password', usernameVariable: 'username')]){
-							bat 'dotnet ${env.Sonar-Scanner}/SonarScanner.MSBuild.dll begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet ${scannerhome}\\SonarScanner.MSBuild.dll begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
 							bat 'dotnet build'
-							bat 'dotnet ${env.Sonar-Scanner}/SonarScanner.MSBuild.dll end /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet ${scannerhome}\\SonarScanner.MSBuild.dll end /d:sonar.login=%username% /d:sonar.password=%password%'
 						}
 					}
 				}
