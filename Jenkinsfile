@@ -24,9 +24,9 @@ pipeline {
 				script{
 					def scannerhome = tool 'Sonar-Scanner'
 					withSonarQubeEnv ('SonarQubeServer'){
-						bat "dotnet ${scannerhome}\\SonarScanner.MSBuild.dll begin /key:Rameez:webapi /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="admin" /d:sonar.password="admin""
-						bat "dotnet build"
-						bat "dotnet ${scannerhome}\\SonarScanner.MSBuild.dll end /d:sonar.login="admin" /d:sonar.password="admin""
+						bat 'dotnet ${scannerhome}\\SonarScanner.MSBuild.dll begin /key:Rameez:webapi /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="admin" /d:sonar.password="admin"'
+						bat 'dotnet build'
+						bat 'dotnet ${scannerhome}\\SonarScanner.MSBuild.dll end /d:sonar.login="admin" /d:sonar.password="admin"'
 					}
 				}
 			}
