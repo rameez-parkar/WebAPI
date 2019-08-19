@@ -7,6 +7,8 @@ pipeline {
 		string(defaultValue:"webapiimage", description: 'Docker Image', name: 'imageName')
 		string(defaultValue:"rameezparkar/webapi_repo", description: 'Repository Name', name: 'repositoryName')
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
+		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
+		string(defaultValue:"11104", description: 'Local port', name: 'localPort')
 	}
     stages {
         stage('Build') {
@@ -75,7 +77,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -p 8111:11104 --rm %imageName%'
+				bat 'docker run -d -p %dockerPort%:%localPort% --rm %imageName%'
 				echo 'Finished Deploying'
 			}
 		}
