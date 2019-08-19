@@ -9,6 +9,8 @@ pipeline {
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
 		string(defaultValue:"11104", description: 'Local port', name: 'localPort')
+		string(defaultValue:"Rameez:basicwebapi", description: 'Sonarqube Project Key', name: 'projectKey')
+		string(defaultValue:"http://localhost:9000", description: 'Sonar Host Url', name: 'sonarHostUrl')
 	}
     stages {
         stage('Build') {
@@ -24,9 +26,11 @@ pipeline {
 				script{
 					def scannerhome = tool 'Sonar-Scanner'
 					withSonarQubeEnv ('SonarQubeServer'){
-						bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll begin /key:Rameez:webapi /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="admin" /d:sonar.password="admin"'
-						bat 'dotnet build'
-						bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="admin" /d:sonar.password="admin"'
+						withCredentials([usernamePassword(credentialsId: '43ecc876-fb21-4289-aed9-e8ad51aae1e2', passwordVariable: 'password', usernameVariable: 'username')]){
+							bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet build'
+							bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login=%username% /d:sonar.password=%password%'
+						}
 					}
 				}
 			}
