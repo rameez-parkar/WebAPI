@@ -26,7 +26,7 @@ pipeline {
 					withSonarQubeEnv ('SonarQubeServer'){
 						bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll begin /key:Rameez:webapi /d:sonar.host.url="http://localhost:9000"  /d:sonar.login="admin" /d:sonar.password="admin"'
 						bat 'dotnet build'
-						bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login="admin" /d:sonar.password="admin"'
+						bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end'
 					}
 				}
 			}
