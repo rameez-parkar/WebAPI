@@ -20,6 +20,13 @@ pipeline {
                 echo 'Finished build'
         	}
         }
+        stage('Test') {
+        	steps{
+        		echo 'Testing project'
+        		bat 'dotnet test %testFile%'
+                echo 'Finished test'
+        	}
+        }
 		stage('Code Analysis'){
 			steps{
 				echo 'Performing SonarQube Code Analysis'
@@ -35,13 +42,6 @@ pipeline {
 				}
 			}
 		}
-        stage('Test') {
-        	steps{
-        		echo 'Testing project'
-        		bat 'dotnet test %testFile%'
-                echo 'Finished test'
-        	}
-        }
         stage('Publish') {
         	steps{
         		echo 'Publishing project'
