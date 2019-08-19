@@ -27,9 +27,9 @@ pipeline {
 					def scannerhome = tool 'Sonar-Scanner'
 					withSonarQubeEnv ('SonarQubeServer'){
 						withCredentials([usernamePassword(credentialsId: '43ecc876-fb21-4289-aed9-e8ad51aae1e2', passwordVariable: 'password', usernameVariable: 'username')]){
-							bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet ${scannerhome}/SonarScanner.MSBuild.dll begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
 							bat 'dotnet build'
-							bat 'dotnet C:/Users/rparkar/Downloads/sonar-scanner-msbuild-4.6.2.2108-netcoreapp2.0/SonarScanner.MSBuild.dll end /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet ${scannerhome}/SonarScanner.MSBuild.dll end /d:sonar.login=%username% /d:sonar.password=%password%'
 						}
 					}
 				}
