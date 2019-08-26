@@ -5,7 +5,8 @@ pipeline {
 		string(defaultValue:"anotherapi.sln", description: 'Name of Solution File', name: 'slnFile')
 		string(defaultValue:"anotherapi.Test/anotherapi.Test.csproj", description: 'Path of test file', name: 'testFile')
 		string(defaultValue:"webapiimage", description: 'Docker Image', name: 'imageName')
-		string(defaultValue:"rameezparkar/webapi_repo", description: 'Repository Name', name: 'repositoryName')
+		string(defaultValue:"webapi_repo", description: 'Repository Name', name: 'repositoryName')
+		string(defaultValue:"rameezparkar", description: 'Registry Name', name: 'registryName')
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
 		string(defaultValue:"11104", description: 'Local port', name: 'localPort')
@@ -67,29 +68,30 @@ pipeline {
 		stage('Docker Push'){
 			steps{
 				echo 'Pushing image to Docker Hub'
-				bat 'docker tag %imageName% %repositoryName%:%tag%'
-				bat 'docker push %repositoryName%:%tag%'
+				bat 'docker tag %imageName% %repositoryName%/%registryName%:%tag%'
+				bat 'docker push %registryName%/%repositoryName%:%tag%'
+				bat 'docker rmi %imageName%'
 				echo 'Image pushed to Docker Hub'
 			}
 		}
 		stage('Docker Pull'){
 			steps{
 				echo 'Pulling image from Docker Hub'
-				bat 'docker pull %repositoryName%:%tag%'
+				bat 'docker pull %registryName%/%repositoryName%:%tag%'
 				echo 'Image pulled from Docker Hub'
 			}
 		}
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %dockerPort%:%localPort% --rm %imageName%'
+				bat 'docker run -d -p %dockerPort%:%localPort% %imageName%'
 				echo 'Finished Deploying'
 			}
 		}
     }
     post{
              success{
-                 archiveArtifacts artifacts: '**', fingerprint:true
+                 deleteDir()
              }
         }
 }
