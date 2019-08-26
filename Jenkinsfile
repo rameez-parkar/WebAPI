@@ -68,7 +68,7 @@ pipeline {
 		stage('Docker Push'){
 			steps{
 				echo 'Pushing image to Docker Hub'
-				bat 'docker tag %imageName% %repositoryName%/%registryName%:%tag%'
+				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				bat 'docker push %registryName%/%repositoryName%:%tag%'
 				bat 'docker rmi %imageName%'
 				echo 'Image pushed to Docker Hub'
