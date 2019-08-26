@@ -69,7 +69,7 @@ pipeline {
 			steps{
 				echo 'Pushing image to Docker Hub'
 				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
-				bat 'docker push %registryName%/%repositoryName%:%tag%'
+				bat 'docker push %imageName%'
 				bat 'docker rmi %imageName%'
 				echo 'Image pushed to Docker Hub'
 			}
@@ -77,7 +77,7 @@ pipeline {
 		stage('Docker Pull'){
 			steps{
 				echo 'Pulling image from Docker Hub'
-				bat 'docker pull %registryName%/%repositoryName%:%tag%'
+				bat 'docker pull %imageName%'
 				echo 'Image pulled from Docker Hub'
 			}
 		}
