@@ -11,7 +11,6 @@ pipeline {
 		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
 		string(defaultValue:"11104", description: 'Local port', name: 'localPort')
 		string(defaultValue:"Rameez:basicwebapi", description: 'Sonarqube Project Key', name: 'projectKey')
-		string(defaultValue:"http://localhost:9000", description: 'Sonar Host Url', name: 'sonarHostUrl')
 	}
     stages {
         stage('Build') {
@@ -34,7 +33,7 @@ pipeline {
 				script{
 					withSonarQubeEnv ('SonarQubeServer'){
 						withCredentials([usernamePassword(credentialsId: '43ecc876-fb21-4289-aed9-e8ad51aae1e2', passwordVariable: 'password', usernameVariable: 'username')]){
-							bat 'dotnet %SonarScanner% begin /key:%projectKey% /d:sonar.host.url=%sonarHostUrl%  /d:sonar.login=%username% /d:sonar.password=%password%'
+							bat 'dotnet %SonarScanner% begin /key:%projectKey% /d:sonar.login=%username% /d:sonar.password=%password%'
 							bat 'dotnet build'
 							bat 'dotnet %SonarScanner% end /d:sonar.login=%username% /d:sonar.password=%password%'
 						}
