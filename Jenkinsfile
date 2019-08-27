@@ -84,14 +84,14 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %dockerPort%:%localPort% -e SOLUTION_DLL=%slnDll% %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -d -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
 				echo 'Finished Deploying'
 			}
 		}
     }
     post{
-             success{
-                 
+             always{
+                 cleanWs()
              }
         }
 }
