@@ -36,35 +36,11 @@ pipeline {
 				echo 'Docker Image built'
 			}
 		}
-		stage('Docker Login'){
-			steps{
-				withCredentials([usernamePassword(credentialsId: '433624c2-9a39-483d-aad6-48526cf306f0', passwordVariable: 'password', usernameVariable: 'username')]){
-					echo 'Logging in to Docker Hub'
-					bat 'docker login --username=%username% --password=%password%'
-					echo 'Login Complete'
-				}
-			}
-		}
-		stage('Docker Push'){
-			steps{
-				echo 'Pushing image to Docker Hub'
-				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
-				bat 'docker push %registryName%/%repositoryName%:%tag%'
-				bat 'docker rmi %imageName%'
-				echo 'Image pushed to Docker Hub'
-			}
-		}
-		stage('Docker Pull'){
-			steps{
-				echo 'Pulling image from Docker Hub'
-				bat 'docker pull %registryName%/%repositoryName%:%tag%'
-				echo 'Image pulled from Docker Hub'
-			}
-		}
+		
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -e SOLUTION_DLL ="%slnDll%" -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
+				bat 'docker run  -p %localPort%:%dockerPort%  -e SOLUTION_DLL=%slnDll% %imageName%'
 			}
 		}
     }
