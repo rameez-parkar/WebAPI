@@ -84,7 +84,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -d -e SOLUTION_DLL="%slnDll%" -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
 			}
 		}
     }
