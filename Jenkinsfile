@@ -84,7 +84,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %localPort%:%dockerPort% --rm %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -d -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
 			}
 		}
     }
