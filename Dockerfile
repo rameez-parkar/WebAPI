@@ -3,4 +3,4 @@ ARG PublishPath
 WORKDIR app
 COPY $PublishPath .
 ENV SOLUTION_DLL = ""
-ENTRYPOINT "dotnet" ${SOLUTION_DLL}
+ENTRYPOINT dotnet ${SOLUTION_DLL}
