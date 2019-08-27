@@ -90,8 +90,8 @@ pipeline {
 		}
     }
     post{
-             success{
-                 deleteDir()
+             always{
+                 cleanWs()
              }
         }
 }
