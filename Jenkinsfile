@@ -10,7 +10,7 @@ pipeline {
 		string(defaultValue:"rameezparkar", description: 'Registry Name', name: 'registryName')
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
 		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
-		string(defaultValue:"11104", description: 'Local port', name: 'localPort')
+		string(defaultValue:"8111", description: 'Local port', name: 'localPort')
 		string(defaultValue:"Rameez:basicwebapi", description: 'Sonarqube Project Key', name: 'projectKey')
 	}
     stages {
