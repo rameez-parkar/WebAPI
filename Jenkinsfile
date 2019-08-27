@@ -70,6 +70,7 @@ pipeline {
 				echo 'Pushing image to Docker Hub'
 				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				bat 'docker push %registryName%/%repositoryName%:%tag%'
+				bat 'docker rmi %imageName%'
 				echo 'Image pushed to Docker Hub'
 			}
 		}
@@ -83,7 +84,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %localPort%:%dockerPort% -e SOLUTION_DLL=%slnDll% %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -d -p %localPort%:%dockerPort% %registryName%/%repositoryName%:%tag%'
 			}
 		}
     }
