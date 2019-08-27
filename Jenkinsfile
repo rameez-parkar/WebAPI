@@ -70,7 +70,7 @@ pipeline {
 				echo 'Pushing image to Docker Hub'
 				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				bat 'docker push %registryName%/%repositoryName%:%tag%'
-				bat 'docker rmi %imageName%'
+				bat 'docker rmi %registryName%/%repositoryName%:%tag%'
 				echo 'Image pushed to Docker Hub'
 			}
 		}
@@ -89,4 +89,9 @@ pipeline {
 			}
 		}
     }
+    post{
+             success{
+                 deleteDir()
+             }
+        }
 }
