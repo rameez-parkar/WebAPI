@@ -52,7 +52,7 @@ pipeline {
 		stage('Docker Build'){
 			steps{
 				echo 'Start Building Docker image'
-				bat 'docker build --tag=%imageName% --file=Dockerfile .'
+				bat 'docker build --build-arg PublishPath=%PublishPath% --tag=%imageName% --file=Dockerfile .'
 				echo 'Docker Image built'
 			}
 		}
