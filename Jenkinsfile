@@ -8,7 +8,7 @@ pipeline {
 		string(defaultValue:"webapi_repo", description: 'Repository Name', name: 'repositoryName')
 		string(defaultValue:"rameezparkar", description: 'Registry Name', name: 'registryName')
 		string(defaultValue:"webapi_tag", description: 'Docker image Tag', name: 'tag')
-		string(defaultValue:"11104", description: 'Docker port', name: 'dockerPort')
+		string(defaultValue:"8111", description: 'Docker port', name: 'dockerPort')
 		string(defaultValue:"8111", description: 'Local port', name: 'localPort')
 		string(defaultValue:"Rameez:basicwebapi", description: 'Sonarqube Project Key', name: 'projectKey')
 	}
@@ -47,14 +47,14 @@ pipeline {
         stage('Publish') {
         	steps{
         		echo 'Publishing project'
-        		bat 'dotnet publish -c Release -o ../artifacts'
+        		bat 'dotnet publish -c Release -o Publish'
                 echo 'Finished publish'
         	}
         }
 		stage('Docker Build'){
 			steps{
 				echo 'Start Building Docker image'
-				bat 'docker build --tag=%imageName% --file=Dockerfile .'
+				bat 'docker build --build-arg -p PublishPath=%PublishPath% --tag=%imageName% --file=Dockerfile .'
 				echo 'Docker Image built'
 			}
 		}

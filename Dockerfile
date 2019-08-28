@@ -1,9 +1,11 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 
-ENV SOLUTION_DLL=Default
+ARG PublishPath
 
-WORKDIR /work
+ENV SOLUTION_DLL="anotherapi.dll"
 
-COPY artifacts .
+WORKDIR /app
 
-ENTRYPOINT dotnet "${SOLUTION_DLL}.dll"
+COPY ${PublishPath} .
+
+ENTRYPOINT dotnet ${SOLUTION_DLL}
