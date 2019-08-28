@@ -81,6 +81,7 @@ pipeline {
 			steps{
 				echo 'Pulling image from Docker Hub'
 				bat 'docker pull %registryName%/%repositoryName%:%tag%'
+				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				echo 'Image pulled from Docker Hub'
 			}
 		}
@@ -88,7 +89,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -p %localPort%:%dockerPort% -e SOLUTION_DLL=%SOLUTION_DLL% -td %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -p %localPort%:%dockerPort% -e SOLUTION_DLL=%SOLUTION_DLL% -t -d %imageName%'
 			}
 		}
     }
