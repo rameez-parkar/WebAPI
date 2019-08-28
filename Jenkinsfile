@@ -81,7 +81,8 @@ pipeline {
 			steps{
 				echo 'Pulling image from Docker Hub'
 				bat 'docker pull %registryName%/%repositoryName%:%tag%'
-				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
+				bat 'docker ps'
+				bat 'docker images'
 				echo 'Image pulled from Docker Hub'
 			}
 		}
