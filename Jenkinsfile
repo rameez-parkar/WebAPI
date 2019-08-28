@@ -54,6 +54,8 @@ pipeline {
 			steps{
 				echo 'Start Building Docker image'
 				bat 'docker build --build-arg PublishPath=%PublishPath% --tag=%imageName% --file=Dockerfile .'
+				bat 'docker ps'
+				bat 'docker images'
 				echo 'Docker Image built'
 			}
 		}
@@ -73,7 +75,11 @@ pipeline {
 				echo 'Pushing image to Docker Hub'
 				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				bat 'docker push %registryName%/%repositoryName%:%tag%'
+				bat 'docker ps'
+				bat 'docker images'
 				bat 'docker rmi %imageName%'
+				bat 'docker ps'
+				bat 'docker images'
 				echo 'Image pushed to Docker Hub'
 			}
 		}
