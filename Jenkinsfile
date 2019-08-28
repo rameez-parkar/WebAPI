@@ -54,8 +54,6 @@ pipeline {
 			steps{
 				echo 'Start Building Docker image'
 				bat 'docker build --build-arg PublishPath=%PublishPath% --tag=%imageName% --file=Dockerfile .'
-				bat 'docker ps'
-				bat 'docker images'
 				echo 'Docker Image built'
 			}
 		}
@@ -75,11 +73,7 @@ pipeline {
 				echo 'Pushing image to Docker Hub'
 				bat 'docker tag %imageName% %registryName%/%repositoryName%:%tag%'
 				bat 'docker push %registryName%/%repositoryName%:%tag%'
-				bat 'docker ps'
-				bat 'docker images'
 				bat 'docker rmi %imageName%'
-				bat 'docker ps'
-				bat 'docker images'
 				echo 'Image pushed to Docker Hub'
 			}
 		}
@@ -87,8 +81,6 @@ pipeline {
 			steps{
 				echo 'Pulling image from Docker Hub'
 				bat 'docker pull %registryName%/%repositoryName%:%tag%'
-				bat 'docker ps'
-				bat 'docker images'
 				bat 'docker tag %registryName%/%repositoryName%:%tag% %imageName%'
 				echo 'Image pulled from Docker Hub'
 			}
@@ -97,7 +89,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -p %localPort%:%dockerPort% -e SOLUTION_DLL=%SOLUTION_DLL% -t %imageName%'
+				bat 'docker run -p %localPort%:%dockerPort% -e SOLUTION_DLL=%SOLUTION_DLL% -t -d %imageName%'
 			}
 		}
     }
