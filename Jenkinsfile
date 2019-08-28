@@ -2,7 +2,6 @@ pipeline {
     agent any
 	parameters{
 		string(defaultValue:"anotherapi.sln", description: 'Name of Solution File', name: 'slnFile')
-		string(defaultValue:"anotherapi.dll", description: "Solution Dll File", name:"slnDll")
 		string(defaultValue:"anotherapi.Test/anotherapi.Test.csproj", description: 'Path of test file', name: 'testFile')
 		string(defaultValue:"webapiimage", description: 'Docker Image', name: 'imageName')
 		string(defaultValue:"webapi_repo", description: 'Repository Name', name: 'repositoryName')
@@ -89,7 +88,7 @@ pipeline {
 		stage('Docker Deploy'){
 			steps{
 				echo 'Started Deploying'
-				bat 'docker run -d -p %localPort%:%dockerPort% -e SOLUTION_DLL="%slnDll%" %registryName%/%repositoryName%:%tag%'
+				bat 'docker run -d -p %localPort%:%dockerPort% -e SOLUTION_DLL=%SOLUTION_DLL% %registryName%/%repositoryName%:%tag%'
 			}
 		}
     }
